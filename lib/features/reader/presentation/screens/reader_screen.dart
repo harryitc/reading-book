@@ -204,6 +204,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                   if (!_showControls)
                     Positioned.fill(
                       child: GestureDetector(
+                        behavior: HitTestBehavior.translucent,
                         onTap: () {
                           setState(() => _showControls = true);
                           Future.delayed(const Duration(seconds: 3), () {
