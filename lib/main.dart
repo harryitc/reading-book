@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/theme/app_theme.dart';
 import 'core/router/app_router.dart';
 import 'features/settings/presentation/providers/settings_provider.dart';
+import 'services/storage/shared_preferences_service.dart';
 
 void main() async {
   // Initialize shared preferences if needed
   WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferencesService().init();
   
   runApp(
     const ProviderScope(

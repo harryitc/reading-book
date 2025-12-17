@@ -4,6 +4,14 @@ import '../../core/utils/logger.dart';
 /// Service for managing shared preferences (app settings, cache)
 class SharedPreferencesService {
   late final SharedPreferences _prefs;
+  
+  static final SharedPreferencesService _instance = SharedPreferencesService._internal();
+  
+  factory SharedPreferencesService() {
+    return _instance;
+  }
+  
+  SharedPreferencesService._internal();
 
   /// Initialize the service
   Future<void> init() async {
