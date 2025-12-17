@@ -58,7 +58,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       if (mounted) {
         final authState = ref.read(authProvider);
         if (authState is Authenticated) {
-          context.go('/main/home');
+          context.push('/main/home');
         }
       }
     }
@@ -260,7 +260,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     GestureDetector(
-                      onTap: () => context.go('/login'),
+                      onTap: () => context.push('/login'),
                       child: Text(
                         'Sign In',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(

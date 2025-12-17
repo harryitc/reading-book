@@ -35,33 +35,29 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         name: 'register',
         builder: (context, state) => const RegisterScreen(),
       ),
-      GoRoute(
-        path: '/main',
-        name: 'main',
-        builder: (context, state) => const MainNavigationScreen(),
-        routes: [
-          GoRoute(
-            path: 'home',
-            name: 'home',
-            builder: (context, state) => const HomeScreen(),
-          ),
-          GoRoute(
-            path: 'library',
-            name: 'library',
-            builder: (context, state) => const LibraryScreen(),
-          ),
-          GoRoute(
-            path: 'ai',
-            name: 'ai',
-            builder: (context, state) => const AIScreen(),
-          ),
-          GoRoute(
-            path: 'settings',
-            name: 'settings',
-            builder: (context, state) => const SettingsScreen(),
-          ),
-        ],
-      ),
+      ShellRoute(
+      builder: (context, state, child) {
+        return MainNavigationScreen(child: child);
+      },
+      routes: [
+        GoRoute(
+          path: '/main/home',
+          builder: (context, state) => const HomeScreen(),
+        ),
+        GoRoute(
+          path: '/main/library',
+          builder: (context, state) => const LibraryScreen(),
+        ),
+        GoRoute(
+          path: '/main/ai',
+          builder: (context, state) => const AIScreen(),
+        ),
+        GoRoute(
+          path: '/main/settings',
+          builder: (context, state) => const SettingsScreen(),
+        ),
+      ],
+    ),
       GoRoute(
         path: '/reader/:storyId',
         name: 'reader',

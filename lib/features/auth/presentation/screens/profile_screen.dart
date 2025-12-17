@@ -100,7 +100,7 @@ class ProfileScreen extends ConsumerWidget {
                       label: const Text('Logout'),
                       onPressed: () {
                         ref.read(authProvider.notifier).logout();
-                        context.go('/login');
+                        context.push('/login');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.error,

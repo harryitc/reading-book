@@ -27,7 +27,7 @@ class SettingsScreen extends ConsumerWidget {
                 _SettingTile(
                   icon: Icons.person,
                   title: 'Profile',
-                  onTap: () => context.go('/profile'),
+                  onTap: () => context.push('/profile'),
                 ),
                 _SettingTile(
                   icon: Icons.logout,
@@ -46,7 +46,7 @@ class SettingsScreen extends ConsumerWidget {
                           TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
-                              context.go('/login');
+                              context.push('/login');
                             },
                             child: const Text('Logout'),
                           ),

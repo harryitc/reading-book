@@ -27,7 +27,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     ref.read(authProvider.notifier).checkAuthStatus();
 
     if (mounted) {
-      context.go('/login');
+      context.push('/login');
     }
   }
 

@@ -114,7 +114,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         final story = stories[index];
                         return StoryCard(
                           story: story,
-                          onTap: () => context.go('/reader/${story.id}'),
+                          onTap: () => context.push('/reader/${story.id}'),
                         );
                       },
                       childCount: stories.length,
