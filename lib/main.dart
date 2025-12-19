@@ -5,10 +5,18 @@ import 'core/router/app_router.dart';
 import 'features/settings/presentation/providers/settings_provider.dart';
 import 'services/storage/shared_preferences_service.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 void main() async {
   // Initialize shared preferences if needed
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferencesService().init();
+
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+  );
+  
   
   runApp(
     const ProviderScope(
