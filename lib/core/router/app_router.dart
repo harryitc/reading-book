@@ -11,6 +11,8 @@ import '../../features/reader/presentation/screens/reader_screen.dart';
 import '../../features/ai/presentation/screens/ai_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
 import '../../features/home/presentation/screens/main_navigation_screen.dart';
+import '../../features/explore/presentation/screens/explore_screen.dart';
+import '../../features/story_detail/presentation/screens/story_detail_screen.dart';
 
 /// GoRouter configuration for app navigation
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -45,6 +47,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           builder: (context, state) => const HomeScreen(),
         ),
         GoRoute(
+          path: '/main/explore',
+          builder: (context, state) => const ExploreScreen(),
+        ),
+        GoRoute(
           path: '/main/library',
           builder: (context, state) => const LibraryScreen(),
         ),
@@ -58,6 +64,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         ),
       ],
     ),
+      GoRoute(
+        path: '/story/:storyId',
+        name: 'story_detail',
+        builder: (context, state) {
+          final storyId = state.pathParameters['storyId'] ?? '';
+          return StoryDetailScreen(storyId: storyId);
+        },
+      ),
       GoRoute(
         path: '/reader/:storyId',
         name: 'reader',
