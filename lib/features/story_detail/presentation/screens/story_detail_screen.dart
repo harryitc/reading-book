@@ -22,6 +22,7 @@ class StoryDetailScreen extends ConsumerStatefulWidget {
 class _StoryDetailScreenState extends ConsumerState<StoryDetailScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  bool _isDescriptionExpanded = false;
 
   @override
   void initState() {
@@ -511,14 +512,44 @@ class _StoryDetailScreenState extends ConsumerState<StoryDetailScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// Description
-          Text(
-            storyDetail.description.isNotEmpty
-                ? storyDetail.description
-                : 'Chưa có mô tả cho truyện này',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  height: 1.6,
+          /// Description with toggle
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _isDescriptionExpanded
+                    ? (storyDetail.description.isNotEmpty
+                        ? storyDetail.description
+                        : 'Chưa có mô tả cho truyện này')
+                    : (storyDetail.description.isNotEmpty
+                        ? (storyDetail.description.length > 200
+                            ? '${storyDetail.description.substring(0, 200)}...'
+                            : storyDetail.description)
+                        : 'Chưa có mô tả cho truyện này'),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      height: 1.6,
+                    ),
+              ),
+              if (storyDetail.description.isNotEmpty &&
+                  storyDetail.description.length > 200)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _isDescriptionExpanded = !_isDescriptionExpanded;
+                      });
+                    },
+                    child: Text(
+                      _isDescriptionExpanded ? 'Thu gọn' : 'Mở rộng',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
+            ],
           ),
 
           const SizedBox(height: 24),
@@ -884,4 +915,6 @@ class _StoryDetailScreenState extends ConsumerState<StoryDetailScreen>
           ],
         ),
       ),
-    )
+    );
+  }
+}
