@@ -29,16 +29,13 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
   Future<List<HotStoryResponse>> getHotStories() async {
     try {
       AppLogger.debug('Calling API: $baseUrl/dashboard-truyen-hot');
-      print('🌐 [DATASOURCE] Calling API: $baseUrl/dashboard-truyen-hot');
 
       final uri = Uri.parse('$baseUrl/dashboard-truyen-hot');
-      print('🌐 [DATASOURCE] Full URI: $uri');
+      // print('🌐 [DATASOURCE] Full URI: $uri');
 
       final response = await httpClient
           .get(uri)
           .timeout(const Duration(seconds: 15));
-
-      print('🌐 [DATASOURCE] Response status: ${response.statusCode}');
 
       if (response.statusCode != 200) {
         throw Exception(
@@ -46,25 +43,19 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
         );
       }
 
-      print('🌐 [DATASOURCE] Response body: ${response.body.substring(0, 200)}...');
 
       final jsonData = jsonDecode(response.body);
       final List<dynamic> jsonList = jsonData is List ? jsonData : [];
-
-      print('🌐 [DATASOURCE] Parsed ${jsonList.length} items from API');
 
       final stories = jsonList
           .map((json) => HotStoryResponse.fromJson(json as Map<String, dynamic>))
           .toList();
 
       AppLogger.debug('Successfully fetched ${stories.length} hot stories from API');
-      print('✅ [DATASOURCE] Successfully created ${stories.length} HotStoryResponse objects');
-      print('✅ [DATASOURCE] First story ID: ${stories.isNotEmpty ? stories[0].id : 'N/A'}');
-      print('✅ [DATASOURCE] First story title: ${stories.isNotEmpty ? stories[0].title : 'N/A'}');
+      // print('✅ [DATASOURCE] Successfully created ${stories.length} HotStoryResponse objects');
       return stories;
     } catch (e) {
       AppLogger.error('Failed to fetch hot stories', e);
-      print('❌ [DATASOURCE] Error: $e');
       rethrow;
     }
   }
@@ -73,16 +64,14 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
   Future<List<RecentlyUpdatedResponse>> getRecentlyUpdatedStories() async {
     try {
       AppLogger.debug('Calling API: $baseUrl/dashboard-truyen-moi-cap-nhat');
-      print('🌐 [DATASOURCE] Calling API: $baseUrl/dashboard-truyen-moi-cap-nhat');
 
       final uri = Uri.parse('$baseUrl/dashboard-truyen-moi-cap-nhat');
-      print('🌐 [DATASOURCE] Full URI: $uri');
+      // print('🌐 [DATASOURCE] Full URI: $uri');
 
       final response = await httpClient
           .get(uri)
           .timeout(const Duration(seconds: 15));
 
-      print('🌐 [DATASOURCE] Response status: ${response.statusCode}');
 
       if (response.statusCode != 200) {
         throw Exception(
@@ -90,12 +79,9 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
         );
       }
 
-      print('🌐 [DATASOURCE] Response body: ${response.body.substring(0, 200)}...');
 
       final jsonData = jsonDecode(response.body);
       final List<dynamic> jsonList = jsonData is List ? jsonData : [];
-
-      print('🌐 [DATASOURCE] Parsed ${jsonList.length} items from API');
 
       final stories = jsonList
           .map((json) =>
@@ -104,14 +90,9 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
 
       AppLogger.debug(
           'Successfully fetched ${stories.length} recently updated stories from API');
-      print(
-          '✅ [DATASOURCE] Successfully created ${stories.length} RecentlyUpdatedResponse objects');
-      print(
-          '✅ [DATASOURCE] First story: ${stories.isNotEmpty ? stories[0].title : 'N/A'}');
       return stories;
     } catch (e) {
       AppLogger.error('Failed to fetch recently updated stories', e);
-      print('❌ [DATASOURCE] Error: $e');
       rethrow;
     }
   }
@@ -120,16 +101,12 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
   Future<List<CompletedStoryResponse>> getCompletedStories() async {
     try {
       AppLogger.debug('Calling API: $baseUrl/dashboard-truyen-da-hoan-thanh');
-      print('🌐 [DATASOURCE] Calling API: $baseUrl/dashboard-truyen-da-hoan-thanh');
 
       final uri = Uri.parse('$baseUrl/dashboard-truyen-da-hoan-thanh');
-      print('🌐 [DATASOURCE] Full URI: $uri');
 
       final response = await httpClient
           .get(uri)
           .timeout(const Duration(seconds: 15));
-
-      print('🌐 [DATASOURCE] Response status: ${response.statusCode}');
 
       if (response.statusCode != 200) {
         throw Exception(
@@ -137,12 +114,8 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
         );
       }
 
-      print('🌐 [DATASOURCE] Response body: ${response.body.substring(0, 200)}...');
-
       final jsonData = jsonDecode(response.body);
       final List<dynamic> jsonList = jsonData is List ? jsonData : [];
-
-      print('🌐 [DATASOURCE] Parsed ${jsonList.length} items from API');
 
       final stories = jsonList
           .map((json) =>
@@ -151,14 +124,9 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
 
       AppLogger.debug(
           'Successfully fetched ${stories.length} completed stories from API');
-      print(
-          '✅ [DATASOURCE] Successfully created ${stories.length} CompletedStoryResponse objects');
-      print(
-          '✅ [DATASOURCE] First story: ${stories.isNotEmpty ? stories[0].title : 'N/A'}');
       return stories;
     } catch (e) {
       AppLogger.error('Failed to fetch completed stories', e);
-      print('❌ [DATASOURCE] Error: $e');
       rethrow;
     }
   }

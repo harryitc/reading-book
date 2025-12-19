@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'recently_updated_response.g.dart';
@@ -21,8 +23,9 @@ class RecentlyUpdatedResponse {
     required this.genres,
   });
 
-  factory RecentlyUpdatedResponse.fromJson(Map<String, dynamic> json) =>
-      _$RecentlyUpdatedResponseFromJson(json);
+  factory RecentlyUpdatedResponse.fromJson(Map<String, dynamic> json) {
+    return _$RecentlyUpdatedResponseFromJson(json);
+  }
 
   Map<String, dynamic> toJson() => _$RecentlyUpdatedResponseToJson(this);
 

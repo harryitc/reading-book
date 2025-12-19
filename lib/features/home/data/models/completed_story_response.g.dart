@@ -12,7 +12,7 @@ CompletedStoryResponse _$CompletedStoryResponseFromJson(
       id: json['id'] as String,
       title: json['title'] as String,
       imageUrl: json['imageUrl'] as String,
-      isFull: json['isFull'] as bool,
+      isFull: json['is_full'] as bool,
       chapters: json['chapters'] as int,
     );
 

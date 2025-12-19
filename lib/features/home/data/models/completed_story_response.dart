@@ -9,7 +9,7 @@ class CompletedStoryResponse {
   final String title;
   @JsonKey(name: 'imageUrl')
   final String imageUrl;
-  @JsonKey(name: 'isFull')
+  @JsonKey(name: 'is_full')
   final bool isFull;
   final int chapters;
 
