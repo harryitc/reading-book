@@ -1,3 +1,6 @@
+/// Story status enum
+enum StoryStatus { full, ongoing }
+
 /// Story model representing a story/book item
 class Story {
   final String id;
@@ -9,8 +12,10 @@ class Story {
   final List<String> genres;
   final double rating;
   final int totalChapters;
+  final int latestChapter;
   final DateTime publishedAt;
   final DateTime? updatedAt;
+  final StoryStatus status;
 
   const Story({
     required this.id,
@@ -22,8 +27,10 @@ class Story {
     required this.genres,
     required this.rating,
     required this.totalChapters,
+    this.latestChapter = 1,
     required this.publishedAt,
     this.updatedAt,
+    this.status = StoryStatus.ongoing,
   });
 
   /// Copy with method for immutability
@@ -37,8 +44,10 @@ class Story {
     List<String>? genres,
     double? rating,
     int? totalChapters,
+    int? latestChapter,
     DateTime? publishedAt,
     DateTime? updatedAt,
+    StoryStatus? status,
   }) {
     return Story(
       id: id ?? this.id,
@@ -50,8 +59,10 @@ class Story {
       genres: genres ?? this.genres,
       rating: rating ?? this.rating,
       totalChapters: totalChapters ?? this.totalChapters,
+      latestChapter: latestChapter ?? this.latestChapter,
       publishedAt: publishedAt ?? this.publishedAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      status: status ?? this.status,
     );
   }
 
@@ -67,8 +78,10 @@ class Story {
       'genres': genres,
       'rating': rating,
       'totalChapters': totalChapters,
+      'latestChapter': latestChapter,
       'publishedAt': publishedAt.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
+      'status': status.name,
     };
   }
 
@@ -84,10 +97,14 @@ class Story {
       genres: List<String>.from(json['genres'] as List? ?? []),
       rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
       totalChapters: json['totalChapters'] as int? ?? 1,
+      latestChapter: json['latestChapter'] as int? ?? 1,
       publishedAt: DateTime.parse(json['publishedAt'] as String),
       updatedAt: json['updatedAt'] != null
           ? DateTime.parse(json['updatedAt'] as String)
           : null,
+      status: json['status'] != null
+          ? StoryStatus.values.byName(json['status'] as String)
+          : StoryStatus.ongoing,
     );
   }
 
