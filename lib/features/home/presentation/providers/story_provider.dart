@@ -1,5 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
+import 'package:reading_book/core/utils/logger.dart';
 import '../../domain/models/story.dart';
+import '../../data/repositories/story_repository.dart';
+import '../../data/datasources/story_remote_datasource.dart';
 import '../../../../core/constants/app_constants.dart';
 
 /// Story state notifier
@@ -332,34 +336,59 @@ final storyListProvider = StateNotifierProvider<StoryNotifier, List<Story>>((ref
   return StoryNotifier();
 });
 
+/// Remote data source provider
+final storyRemoteDataSourceProvider =
+    Provider<StoryRemoteDataSource>((ref) {
+  return StoryRemoteDataSourceImpl(httpClient: http.Client());
+});
+
+/// Story repository provider
+final storyRepositoryProvider = Provider<StoryRepository>((ref) {
+  final dataSource = ref.watch(storyRemoteDataSourceProvider);
+  return StoryRepository(remoteDataSource: dataSource);
+});
+
+/// Load hot stories from API
+final allStoriesProvider = FutureProvider<List<Story>>((ref) async {
+  final repository = ref.watch(storyRepositoryProvider);
+  try {
+    final stories = await repository.fetchHotStories();
+    AppLogger.log('✅ [API] Successfully loaded ${stories.length} stories from API');
+    AppLogger.log('✅ First story: ${stories.isNotEmpty ? stories[0].title : 'N/A'}');
+    return stories;
+  } catch (e) {
+    AppLogger.log('❌ [API] Failed to load from API: $e');
+    AppLogger.log('⚠️ [FALLBACK] Falling back to mock data...');
+    // Fallback to mock data if API fails
+    final notifier = ref.read(storyListProvider.notifier);
+    await notifier.loadStories();
+    final mockStories = ref.watch(storyListProvider);
+    AppLogger.log('✅ [MOCK] Loaded ${mockStories.length} mock stories as fallback');
+    return mockStories;
+  }
+});
+
 /// Featured stories provider
 final featuredStoriesProvider = FutureProvider<List<Story>>((ref) async {
-  final notifier = ref.read(storyListProvider.notifier);
-  await notifier.loadStories();
-  return ref.watch(storyListProvider);
+  final stories = await ref.watch(allStoriesProvider.future);
+  return stories;
 });
 
 /// Hot stories provider
 final hotStoriesProvider = FutureProvider<List<Story>>((ref) async {
-  final notifier = ref.read(storyListProvider.notifier);
-  await notifier.loadStories();
-  final stories = ref.watch(storyListProvider);
+  final stories = await ref.watch(allStoriesProvider.future);
   return stories.take(5).toList();
 });
 
 /// Recently updated stories provider
 final recentlyUpdatedProvider = FutureProvider<List<Story>>((ref) async {
-  final notifier = ref.read(storyListProvider.notifier);
-  await notifier.loadStories();
-  final stories = ref.watch(storyListProvider);
+  final stories = await ref.watch(allStoriesProvider.future);
   return stories.skip(5).take(5).toList();
 });
 
 /// Completed stories provider
 final completedStoriesProvider = FutureProvider<List<Story>>((ref) async {
-  final notifier = ref.read(storyListProvider.notifier);
-  await notifier.loadStories();
-  final stories = ref.watch(storyListProvider);
+  final stories = await ref.watch(allStoriesProvider.future);
   return stories.where((story) => story.status == StoryStatus.full).toList();
 });
 

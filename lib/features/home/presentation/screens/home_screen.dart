@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../providers/story_provider.dart';
+import '../providers/hot_stories_provider.dart';
+import '../providers/recently_updated_provider.dart';
+import '../providers/completed_stories_provider.dart';
 import '../widgets/horizontal_story_card.dart';
 import '../widgets/story_list_item.dart';
+import '../../../../core/widgets/skeleton_loader.dart';
 
 /// Home screen for the StoryNest app
 class HomeScreen extends ConsumerStatefulWidget {
@@ -80,8 +83,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ),
                 );
               },
-              loading: () =>
-                  SliverToBoxAdapter(child: _buildLoadingState(context)),
+              loading: () => SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 260,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: index == 2 ? 0 : 12),
+                        child: HorizontalStoryCardSkeleton(isLarge: true),
+                      );
+                    },
+                  ),
+                ),
+              ),
               error: (error, stack) => SliverToBoxAdapter(
                 child: _buildErrorState(context, error.toString()),
               ),
@@ -128,8 +145,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ),
                 );
               },
-              loading: () =>
-                  SliverToBoxAdapter(child: _buildLoadingState(context)),
+              loading: () => SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 220,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: index == 2 ? 0 : 12),
+                        child: HorizontalStoryCardSkeleton(isLarge: false),
+                      );
+                    },
+                  ),
+                ),
+              ),
               error: (error, stack) => SliverToBoxAdapter(
                 child: _buildErrorState(context, error.toString()),
               ),
@@ -144,7 +175,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             completedStories.when(
               data: (stories) {
                 if (stories.isEmpty) {
-                  return SliverFillRemaining(
+                  return SliverToBoxAdapter(
                     child: _buildEmptyState(
                       context,
                       'No completed stories available',
@@ -161,9 +192,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   }, childCount: stories.length),
                 );
               },
-              loading: () =>
-                  SliverFillRemaining(child: _buildLoadingState(context)),
-              error: (error, stack) => SliverFillRemaining(
+              loading: () => SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => const StoryListItemSkeleton(),
+                  childCount: 5,
+                ),
+              ),
+              error: (error, stack) => SliverToBoxAdapter(
                 child: _buildErrorState(context, error.toString()),
               ),
             ),
@@ -226,7 +261,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 )
               : null,
           filled: true,
-          fillColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+          fillColor: theme.colorScheme.surfaceContainerHighest.withValues(
+            alpha: 0.5,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide.none,
@@ -238,9 +275,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
         onChanged: (value) {
           setState(() {});
-          if (value.isNotEmpty) {
-            ref.read(searchStoriesProvider.notifier).search(value);
-          }
+          // TODO: Implement search functionality
+          // if (value.isNotEmpty) {
+          //   ref.read(searchStoriesProvider.notifier).search(value);
+          // }
         },
       ),
     );
@@ -267,19 +305,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: const Text('See All'),
           ),
         ],
-      ),
-    );
-  }
-
-  /// Build loading state
-  Widget _buildLoadingState(BuildContext context) {
-    final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 32),
-      child: Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
-        ),
       ),
     );
   }

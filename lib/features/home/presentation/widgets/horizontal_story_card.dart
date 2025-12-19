@@ -90,44 +90,78 @@ class HorizontalStoryCard extends StatelessWidget {
                         ),
                       ),
                       if (isLarge) const SizedBox(height: 8),
-                      
+
                       // Status badge + Latest chapter
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // Status badge
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: story.status == StoryStatus.full
-                                  ? Colors.green
-                                  : Colors.orange,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              story.status == StoryStatus.full ? 'FULL' : 'ONGOING',
-                              style: theme.textTheme.labelSmall?.copyWith(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          
-                          // Latest chapter (if enabled)
-                          if (showLatestChapter)
+                      if (showLatestChapter)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Latest chapter with better styling
                             Text(
-                              'Ch ${story.latestChapter}',
+                              'Chương ${story.latestChapter}',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: theme.textTheme.labelSmall?.copyWith(
                                 color: Colors.white70,
-                                fontSize: 10,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
-                        ],
-                      ),
+                            const SizedBox(height: 4),
+                            // Status badge
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 3,
+                              ),
+                              decoration: BoxDecoration(
+                                color: story.status == StoryStatus.full
+                                    ? Colors.green
+                                    : Colors.orange,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                story.status == StoryStatus.full
+                                    ? 'FULL'
+                                    : 'ONGOING',
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      else
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Status badge
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: story.status == StoryStatus.full
+                                    ? Colors.green
+                                    : Colors.orange,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                story.status == StoryStatus.full
+                                    ? 'FULL'
+                                    : 'ONGOING',
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                     ],
                   ),
                 ),
