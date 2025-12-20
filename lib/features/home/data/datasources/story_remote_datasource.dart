@@ -4,6 +4,7 @@ import '../models/hot_story_response.dart';
 import '../models/recently_updated_response.dart';
 import '../models/completed_story_response.dart';
 import '../../../../core/utils/logger.dart';
+import '../../../../core/constants/app_constants.dart';
 
 /// Remote data source for story API calls
 abstract class StoryRemoteDataSource {
@@ -20,17 +21,16 @@ abstract class StoryRemoteDataSource {
 /// Implementation of StoryRemoteDataSource
 class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
   final http.Client httpClient;
-  static const String baseUrl =
-      'https://redbird-generous-alpaca.ngrok-free.app/webhook';
 
   StoryRemoteDataSourceImpl({required this.httpClient});
 
   @override
   Future<List<HotStoryResponse>> getHotStories() async {
     try {
-      AppLogger.debug('Calling API: $baseUrl/dashboard-truyen-hot');
+      final url = '${AppConstants.baseApiUrl}${AppConstants.hotStoriesEndpoint}';
+      AppLogger.debug('Calling API: $url');
 
-      final uri = Uri.parse('$baseUrl/dashboard-truyen-hot');
+      final uri = Uri.parse(url);
       // print('🌐 [DATASOURCE] Full URI: $uri');
 
       final response = await httpClient
@@ -63,9 +63,10 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
   @override
   Future<List<RecentlyUpdatedResponse>> getRecentlyUpdatedStories() async {
     try {
-      AppLogger.debug('Calling API: $baseUrl/dashboard-truyen-moi-cap-nhat');
+      final url = '${AppConstants.baseApiUrl}${AppConstants.recentlyUpdatedEndpoint}';
+      AppLogger.debug('Calling API: $url');
 
-      final uri = Uri.parse('$baseUrl/dashboard-truyen-moi-cap-nhat');
+      final uri = Uri.parse(url);
       // print('🌐 [DATASOURCE] Full URI: $uri');
 
       final response = await httpClient
@@ -100,9 +101,10 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
   @override
   Future<List<CompletedStoryResponse>> getCompletedStories() async {
     try {
-      AppLogger.debug('Calling API: $baseUrl/dashboard-truyen-da-hoan-thanh');
+      final url = '${AppConstants.baseApiUrl}${AppConstants.completedStoriesEndpoint}';
+      AppLogger.debug('Calling API: $url');
 
-      final uri = Uri.parse('$baseUrl/dashboard-truyen-da-hoan-thanh');
+      final uri = Uri.parse(url);
 
       final response = await httpClient
           .get(uri)

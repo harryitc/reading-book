@@ -7,8 +7,15 @@ class AppConstants {
   static const String appVersion = '1.0.0';
 
   // API Configuration
-  static const String baseApiUrl = 'https://api.storynest.local';
+  static const String baseApiUrl = 'http://127.0.0.1:5678/webhook';
   static const Duration apiTimeout = Duration(seconds: 30);
+
+  // API Endpoints
+  static const String hotStoriesEndpoint = '/dashboard-truyen-hot';
+  static const String recentlyUpdatedEndpoint = '/dashboard-truyen-moi-cap-nhat';
+  static const String completedStoriesEndpoint = '/dashboard-truyen-da-hoan-thanh';
+  static const String queryStoriesEndpoint = '/truyen/query';
+  static const String storyDetailEndpoint = '/truyen/get-one';
 
   // Storage Keys
   static const String tokenKey = 'auth_token';

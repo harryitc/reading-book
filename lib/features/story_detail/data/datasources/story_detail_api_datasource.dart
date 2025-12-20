@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:reading_book/services/api/http_client.dart';
 import 'package:reading_book/core/utils/logger.dart';
+import 'package:reading_book/core/constants/app_constants.dart';
 import '../models/story_detail_response.dart';
 
 /// API data source for story detail queries
@@ -23,8 +24,9 @@ class StoryDetailApiDatasource {
       AppLogger.info('Fetching story detail for ID: $storyId');
 
       // Make GET request to /truyen/get-one with query parameter
+      final url = '${AppConstants.baseApiUrl}${AppConstants.storyDetailEndpoint}';
       final response = await _httpClient.get(
-        'https://redbird-generous-alpaca.ngrok-free.app/webhook/truyen/get-one',
+        url,
         queryParameters: {'id': storyId},
       );
 
