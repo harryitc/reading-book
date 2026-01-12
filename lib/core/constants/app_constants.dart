@@ -7,7 +7,7 @@ class AppConstants {
   static const String appVersion = '1.0.0';
 
   // API Configuration
-  static const String baseApiUrl = 'http://127.0.0.1:5678/webhook';
+  static const String baseApiUrl = 'http://192.168.137.1:5678/webhook';
   static const Duration apiTimeout = Duration(seconds: 30);
 
   // API Endpoints
