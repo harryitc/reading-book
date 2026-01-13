@@ -6,9 +6,9 @@ class AppLogger {
 
   static void log(String message, [Object? error, StackTrace? stackTrace]) {
     if (kDebugMode) {
-      print('[StoryNest] $message');
+      print('[Truyện Hay] $message');
       if (error != null) {
-        print('[StoryNest Error] $error');
+        print('[Truyện Hay Error] $error');
       }
       if (stackTrace != null) {
         print('[StackTrace] $stackTrace');

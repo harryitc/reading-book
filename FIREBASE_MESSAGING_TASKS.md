@@ -297,4 +297,4 @@ dependencies:
 
 **Tạo bởi**: GitHub Copilot  
 **Ngày tạo**: January 12, 2026  
-**Dự án**: StoryNest - Reading Book App
+**Dự án**: Truyện Hay - Reading Book App

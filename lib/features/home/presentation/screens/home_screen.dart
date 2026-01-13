@@ -8,7 +8,7 @@ import '../widgets/horizontal_story_card.dart';
 import '../widgets/story_list_item.dart';
 import '../../../../core/widgets/skeleton_loader.dart';
 
-/// Home screen for the StoryNest app
+/// Home screen for the Truyện Hay app
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -217,7 +217,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       elevation: 0,
       backgroundColor: theme.colorScheme.surface,
       title: Text(
-        '📚 StoryNest',
+        '📚 Truyện Hay',
         style: theme.textTheme.titleLarge?.copyWith(
           fontWeight: FontWeight.bold,
           color: theme.colorScheme.primary,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Centralized color scheme for StoryNest app
+/// Centralized color scheme for Truyện Hay app
 class AppColors {
   // Prevent instantiation
   AppColors._();

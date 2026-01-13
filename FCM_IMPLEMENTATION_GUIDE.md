@@ -1,8 +1,8 @@
-# 📚 Hướng dẫn sử dụng Firebase Cloud Messaging trong StoryNest
+# 📚 Hướng dẫn sử dụng Firebase Cloud Messaging trong Truyện Hay
 
 ## ✅ IMPLEMENTATION COMPLETED
 
-Firebase Cloud Messaging đã được tích hợp hoàn chỉnh vào ứng dụng StoryNest!
+Firebase Cloud Messaging đã được tích hợp hoàn chỉnh vào ứng dụng Truyện Hay!
 
 ---
 
@@ -404,5 +404,5 @@ Nếu gặp vấn đề, check:
 ---
 
 **Created**: January 12, 2026  
-**Project**: StoryNest - Reading Book App  
+**Project**: Truyện Hay - Reading Book App  
 **Version**: 1.0.0

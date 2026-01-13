@@ -1,6 +1,6 @@
 # Explore / Discover Feature
 
-A complete implementation of the Explore screen for the StoryNest reading application.
+A complete implementation of the Explore screen for the Truyện Hay reading application.
 
 ## Overview
 

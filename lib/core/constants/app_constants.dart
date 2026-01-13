@@ -3,7 +3,7 @@ class AppConstants {
   AppConstants._();
 
   // App Information
-  static const String appName = 'StoryNest';
+  static const String appName = 'Truyện Hay';
   static const String appVersion = '1.0.0';
 
   // API Configuration

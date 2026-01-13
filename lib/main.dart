@@ -125,7 +125,7 @@ class _StoryNestAppState extends ConsumerState<StoryNestApp> {
     final themeMode = ref.watch(themeModeProvider);
 
     return MaterialApp.router(
-      title: 'StoryNest',
+      title: 'Truyện Hay',
       debugShowCheckedModeBanner: false,
       routerConfig: router,
       theme: AppTheme.lightTheme,

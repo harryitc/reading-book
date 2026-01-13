@@ -1,8 +1,8 @@
-# Home Screen Implementation - StoryNest Reading App
+# Home Screen Implementation - Truyện Hay Reading App
 
 ## Overview
 
-The Home Screen is the main entry point of the StoryNest application, featuring a clean, modern Material 3 design with a pastel blue color scheme. It displays story content across three distinct sections with smooth scrolling and responsive layouts.
+The Home Screen is the main entry point of the Truyện Hay application, featuring a clean, modern Material 3 design with a pastel blue color scheme. It displays story content across three distinct sections with smooth scrolling and responsive layouts.
 
 ---
 
@@ -26,7 +26,7 @@ The Home Screen is the main entry point of the StoryNest application, featuring 
 ## Sections Breakdown
 
 ### 1️⃣ App Bar
-- **Logo/Name**: "📚 StoryNest" (left-aligned with app color)
+- **Logo/Name**: "📚 Truyện Hay" (left-aligned with app color)
 - **Search Icon**: Opens search functionality (expandable)
 - **Avatar Icon**: Navigates to user profile
 
