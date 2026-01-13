@@ -7,21 +7,21 @@ part of 'recently_updated_response.dart';
 // **************************************************************************
 
 RecentlyUpdatedResponse _$RecentlyUpdatedResponseFromJson(
-        Map<String, dynamic> json) =>
-    RecentlyUpdatedResponse(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      latestChapter: json['latestChapter'] as String,
-      latestTime: json['latestTime'] as String,
-      genres: List<String>.from(json['genres'] as List),
-    );
+  Map<String, dynamic> json,
+) => RecentlyUpdatedResponse(
+  id: json['id'] as String,
+  title: json['title'] as String,
+  latestChapter: json['latestChapter'] as String,
+  latestTime: json['latestTime'] as String,
+  genres: (json['genres'] as List<dynamic>).map((e) => e as String).toList(),
+);
 
 Map<String, dynamic> _$RecentlyUpdatedResponseToJson(
-        RecentlyUpdatedResponse instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      'latestChapter': instance.latestChapter,
-      'latestTime': instance.latestTime,
-      'genres': instance.genres,
-    };
+  RecentlyUpdatedResponse instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'title': instance.title,
+  'latestChapter': instance.latestChapter,
+  'latestTime': instance.latestTime,
+  'genres': instance.genres,
+};

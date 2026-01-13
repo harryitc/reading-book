@@ -13,6 +13,7 @@ import '../../features/settings/presentation/screens/settings_screen.dart';
 import '../../features/home/presentation/screens/main_navigation_screen.dart';
 import '../../features/explore/presentation/screens/explore_screen.dart';
 import '../../features/story_detail/presentation/screens/story_detail_screen.dart';
+import '../../features/notifications/presentation/screens/notifications_screen.dart';
 
 /// GoRouter configuration for app navigation
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -84,6 +85,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: '/profile',
         name: 'profile',
         builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: '/notifications',
+        name: 'notifications',
+        builder: (context, state) => const NotificationsScreen(),
       ),
     ],
     errorBuilder: (context, state) {
