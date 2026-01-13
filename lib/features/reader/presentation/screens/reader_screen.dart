@@ -26,8 +26,10 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
-    // Load reader settings
-    ref.read(readerSettingsProvider.notifier).loadSettings();
+    // Load reader settings after build
+    Future.microtask(() {
+      ref.read(readerSettingsProvider.notifier).loadSettings();
+    });
   }
 
   @override

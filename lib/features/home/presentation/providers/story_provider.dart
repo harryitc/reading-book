@@ -5,6 +5,7 @@ import '../../domain/models/story.dart';
 import '../../data/repositories/story_repository.dart';
 import '../../data/datasources/story_remote_datasource.dart';
 import '../../../../core/constants/app_constants.dart';
+import '../../../reader/data/mock_story_content.dart';
 
 /// Story state notifier
 class StoryNotifier extends StateNotifier<List<Story>> {
@@ -394,9 +395,31 @@ final completedStoriesProvider = FutureProvider<List<Story>>((ref) async {
 
 /// Single story provider
 final storyProvider = FutureProvider.family<Story?, String>((ref, storyId) async {
-  final notifier = ref.read(storyListProvider.notifier);
-  await notifier.loadStories();
-  return notifier.getStoryById(storyId);
+  // Load all stories first
+  final stories = await ref.watch(allStoriesProvider.future);
+  
+  // Find the story by ID
+  final story = stories.firstWhere(
+    (s) => s.id == storyId,
+    orElse: () => Story(
+      id: storyId,
+      title: 'Mock Story',
+      author: 'Mock Author',
+      description: 'This is a mock story for testing.',
+      content: MockStoryContent.getContentById(storyId),
+      genres: ['Adventure', 'Fantasy'],
+      rating: 4.5,
+      totalChapters: 10,
+      latestChapter: 10,
+      publishedAt: DateTime.now(),
+      status: StoryStatus.full,
+    ),
+  );
+  
+  // Override content with detailed mock data
+  return story.copyWith(
+    content: MockStoryContent.getContentById(storyId),
+  );
 });
 
 /// Search stories provider
