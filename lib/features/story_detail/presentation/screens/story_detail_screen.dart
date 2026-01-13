@@ -50,7 +50,7 @@ class _StoryDetailScreenState extends ConsumerState<StoryDetailScreen>
               _buildHeader(context, storyDetail),
 
               /// Story info section
-              _buildInfoSection(context, storyDetail),
+              // _buildInfoSection(context, storyDetail),
 
               /// Quick stats
               _buildStatsSection(context, storyDetail),
@@ -74,7 +74,7 @@ class _StoryDetailScreenState extends ConsumerState<StoryDetailScreen>
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return SliverAppBar(
-      expandedHeight: 340,
+      expandedHeight: 440,
       floating: false,
       pinned: true,
       elevation: 0,
