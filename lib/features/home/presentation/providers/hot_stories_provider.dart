@@ -21,8 +21,6 @@ final hotStoriesProvider = FutureProvider<List<Story>>((ref) async {
   final repository = ref.watch(hotStoriesRepositoryProvider);
   try {
     final stories = await repository.fetchHotStories();
-    AppLogger.log('✅ [HOT STORIES PROVIDER] Successfully loaded ${stories.length} hot stories');
-    AppLogger.log('✅ First story: ${stories.isNotEmpty ? stories[0].title : 'N/A'}');
     return stories;
   } catch (e) {
     AppLogger.log('❌ [HOT STORIES PROVIDER] Failed to load hot stories: $e');

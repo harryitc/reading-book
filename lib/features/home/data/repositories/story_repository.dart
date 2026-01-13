@@ -14,19 +14,10 @@ class StoryRepository {
   /// Fetch hot stories from remote source
   Future<List<Story>> fetchHotStories() async {
     try {
-      print('📦 [REPOSITORY] Fetching hot stories...');
       final responses = await remoteDataSource.getHotStories();
-      print(
-        '📦 [REPOSITORY] Received ${responses.length} responses from datasource',
-      );
 
       final stories = responses.map(_mapToStory).toList();
-      print('📦 [REPOSITORY] Mapped to ${stories.length} Story objects');
-      print(
-        '📦 [REPOSITORY] First story after mapping: ${stories.isNotEmpty ? stories[0].title : 'N/A'}',
-      );
 
-      AppLogger.debug('Successfully fetched ${stories.length} hot stories');
       return stories;
     } catch (e) {
       AppLogger.error('Error fetching hot stories in repository', e);
@@ -38,21 +29,10 @@ class StoryRepository {
   /// Fetch recently updated stories from remote source
   Future<List<Story>> fetchRecentlyUpdatedStories() async {
     try {
-      print('📦 [REPOSITORY] Fetching recently updated stories...');
       final responses = await remoteDataSource.getRecentlyUpdatedStories();
-      print(
-        '📦 [REPOSITORY] Received ${responses.length} responses from datasource',
-      );
 
       final stories = responses.map(_mapRecentlyUpdatedToStory).toList();
-      print('📦 [REPOSITORY] Mapped to ${stories.length} Story objects');
-      print(
-        '📦 [REPOSITORY] First story: ${stories.isNotEmpty ? stories[0].title : 'N/A'}',
-      );
 
-      AppLogger.debug(
-        'Successfully fetched ${stories.length} recently updated stories',
-      );
       return stories;
     } catch (e) {
       AppLogger.error('Error fetching recently updated stories', e);
@@ -64,21 +44,10 @@ class StoryRepository {
   /// Fetch completed stories from remote source
   Future<List<Story>> fetchCompletedStories() async {
     try {
-      print('📦 [REPOSITORY] Fetching completed stories...');
       final responses = await remoteDataSource.getCompletedStories();
-      print(
-        '📦 [REPOSITORY] Received ${responses.length} responses from datasource',
-      );
 
       final stories = responses.map(_mapCompletedToStory).toList();
-      print('📦 [REPOSITORY] Mapped to ${stories.length} Story objects');
-      print(
-        '📦 [REPOSITORY] First story: ${stories.isNotEmpty ? stories[0].title : 'N/A'}',
-      );
 
-      AppLogger.debug(
-        'Successfully fetched ${stories.length} completed stories',
-      );
       return stories;
     } catch (e) {
       AppLogger.error('Error fetching completed stories', e);

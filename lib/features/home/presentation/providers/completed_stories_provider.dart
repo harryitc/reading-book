@@ -20,12 +20,7 @@ final completedStoriesRepositoryProvider = Provider<StoryRepository>((ref) {
 final completedStoriesProvider = FutureProvider<List<Story>>((ref) async {
   final repository = ref.watch(completedStoriesRepositoryProvider);
   try {
-    AppLogger.log('📦 [COMPLETED STORIES PROVIDER] Fetching completed stories...');
     final stories = await repository.fetchCompletedStories();
-    AppLogger.log(
-        '✅ [COMPLETED STORIES PROVIDER] Successfully loaded ${stories.length} stories');
-    AppLogger.log(
-        '✅ [COMPLETED STORIES PROVIDER] First story: ${stories.isNotEmpty ? stories[0].title : 'N/A'}');
     return stories;
   } catch (e) {
     AppLogger.log(

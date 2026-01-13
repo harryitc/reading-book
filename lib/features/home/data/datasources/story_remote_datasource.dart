@@ -51,8 +51,6 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
           .map((json) => HotStoryResponse.fromJson(json as Map<String, dynamic>))
           .toList();
 
-      AppLogger.debug('Successfully fetched ${stories.length} hot stories from API');
-      // print('✅ [DATASOURCE] Successfully created ${stories.length} HotStoryResponse objects');
       return stories;
     } catch (e) {
       AppLogger.error('Failed to fetch hot stories', e);
@@ -89,8 +87,6 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
               RecentlyUpdatedResponse.fromJson(json as Map<String, dynamic>))
           .toList();
 
-      AppLogger.debug(
-          'Successfully fetched ${stories.length} recently updated stories from API');
       return stories;
     } catch (e) {
       AppLogger.error('Failed to fetch recently updated stories', e);
@@ -124,8 +120,6 @@ class StoryRemoteDataSourceImpl implements StoryRemoteDataSource {
               CompletedStoryResponse.fromJson(json as Map<String, dynamic>))
           .toList();
 
-      AppLogger.debug(
-          'Successfully fetched ${stories.length} completed stories from API');
       return stories;
     } catch (e) {
       AppLogger.error('Failed to fetch completed stories', e);
