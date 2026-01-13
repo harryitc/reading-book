@@ -43,6 +43,13 @@ flutter run
 - Firebase Messaging
 - Provider/Bloc (State Management)
 
+## Screenhots
+Firebase Messaging
+<p align="center">
+  <img src="examples/notifi1.png" width="30%" />
+  <img src="examples/notifi2.png" width="30%" />
+</p>
+
 ## License
 
 This project is licensed under the MIT License.
