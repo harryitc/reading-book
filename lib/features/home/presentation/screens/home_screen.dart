@@ -47,7 +47,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
             // Hot Stories Section
             SliverToBoxAdapter(
-              child: _buildSectionHeader(context, '🔥 Hot Stories'),
+              child: _buildSectionHeader(context, '🔥 Nổi bật'),
             ),
             hotStories.when(
               data: (stories) {
@@ -108,7 +108,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
             // Recently Updated Section
             SliverToBoxAdapter(
-              child: _buildSectionHeader(context, '🆕 Recently Updated'),
+              child: _buildSectionHeader(context, '🆕 Cập nhật gần đây'),
             ),
             recentlyUpdated.when(
               data: (stories) {
@@ -170,7 +170,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
             // Completed Stories Section
             SliverToBoxAdapter(
-              child: _buildSectionHeader(context, '✅ Completed Stories'),
+              child: _buildSectionHeader(context, '✅ Đã hoàn thành'),
             ),
             completedStories.when(
               data: (stories) {
