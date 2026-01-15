@@ -66,8 +66,9 @@ class _StoryNestAppState extends ConsumerState<StoryNestApp> {
 
       ref.read(notificationProvider.notifier).addNotification(notification);
 
-      // Show in-app notification (optional)
-      _showInAppNotification(message);
+      // Don't show in-app notification to avoid duplicates
+      // System notification is already shown by Firebase
+      // _showInAppNotification(message);
 
       // Handle navigation if needed
       _handleNotificationNavigation(message);

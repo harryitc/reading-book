@@ -186,10 +186,10 @@ class FirebaseMessagingService {
         print('Data: ${message.data}');
       }
 
-      // Save to storage
+      // Save to storage (with duplicate check)
       _saveNotificationToStorage(message);
       
-      // Emit event
+      // Emit event to main.dart listener
       _notificationStreamController.add(message);
     });
 
@@ -253,9 +253,21 @@ class FirebaseMessagingService {
       final notificationsJson = prefs.getString('notifications') ?? '[]';
       final List<dynamic> notifications = jsonDecode(notificationsJson);
       
+      // Create notification ID
+      final notificationId = message.messageId ?? DateTime.now().millisecondsSinceEpoch.toString();
+      
+      // Check if notification already exists (prevent duplicates)
+      final exists = notifications.any((n) => n['id'] == notificationId);
+      if (exists) {
+        if (kDebugMode) {
+          print('⚠️ Notification $notificationId already exists in storage, skipping...');
+        }
+        return; // Don't save duplicate
+      }
+      
       // Create notification object
       final notification = {
-        'id': message.messageId ?? DateTime.now().millisecondsSinceEpoch.toString(),
+        'id': notificationId,
         'title': message.notification?.title ?? '',
         'body': message.notification?.body ?? '',
         'data': message.data,
@@ -277,6 +289,10 @@ class FirebaseMessagingService {
       // Increment unread count
       final unreadCount = prefs.getInt('unread_notification_count') ?? 0;
       await prefs.setInt('unread_notification_count', unreadCount + 1);
+      
+      if (kDebugMode) {
+        print('✅ Notification $notificationId saved to storage via background handler');
+      }
     } catch (e) {
       if (kDebugMode) {
         print('❌ Error saving notification to storage: $e');

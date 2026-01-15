@@ -40,6 +40,15 @@ class NotificationRepository {
     try {
       final notifications = await getNotifications();
       
+      // Check if notification with same ID already exists (prevent duplicates)
+      final exists = notifications.any((n) => n.id == notification.id);
+      if (exists) {
+        if (kDebugMode) {
+          print('⚠️ Notification ${notification.id} already exists, skipping...');
+        }
+        return; // Don't save duplicate
+      }
+      
       // Add to beginning
       notifications.insert(0, notification);
       
@@ -55,6 +64,10 @@ class NotificationRepository {
       if (!notification.isRead) {
         final count = await getUnreadCount();
         await _prefs.setInt(_unreadCountKey, count + 1);
+      }
+      
+      if (kDebugMode) {
+        print('✅ Notification ${notification.id} saved successfully');
       }
     } catch (e) {
       if (kDebugMode) {
